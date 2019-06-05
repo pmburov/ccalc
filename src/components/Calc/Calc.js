@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components/macro';
+import styled, { css } from 'styled-components/macro';
 
 import { calcDaily, calcGain, calcLoss } from '../../core/calc';
 
@@ -14,66 +14,84 @@ const Calc = () => {
 
   return (
     <Grid>
-          <Column>
-            <label htmlFor="weight">Weight</label>
-          </Column>
-          <Column>
+          <Block>
+            <Label htmlFor="weight">Weight</Label>
             <Input id="weight" type="number" value={weight} onChange={(e) => setWeight(e.target.value)} />
-          </Column>
-          <Column>
-            <label htmlFor="height">Height</label>
-          </Column>
-          <Column>
+          </Block>
+          <Block>
+            <Label htmlFor="height">Height</Label>
             <Input id="height" type="number" value={height} onChange={(e) => setHeight(e.target.value)} />
-          </Column>
-          <Column>
-            <label htmlFor="age">Age</label>
-          </Column>
-          <Column>
+          </Block>
+          <Block>
+            <Label htmlFor="age">Age</Label>
             <Input id="age" type="number" value={age} onChange={(e) => setAge(e.target.value)} />
-          </Column>
-          <Column>
-            Activity
-        </Column>
-          <Column>
-            <select name="" id="" defaultValue={activity} onChange={(e) => setActivity(e.target.value)}>
+          </Block>
+          <Block>
+            <Label>Activity</Label>
+            <Select name="" id="" defaultValue={activity} onChange={(e) => setActivity(e.target.value)}>
               <option value="1.20">1.20</option>
               <option value="1.38">1.38</option>
               <option value="1.55">1.55</option>
               <option value="1.73">1.73</option>
-            </select>
-          </Column>
-          <Column>
-            Total
-        </Column>
-          <Column>
-            {daily.toFixed(2)}
-          </Column>
-          <Column>
-            Alter Percent
-        </Column>
-          <Column>
-            <Input type="number" value={alterPercent} onChange={(e) => setAlterPercent(e.target.value)} />
-          </Column>
-          <Column>
-            Gain {calcGain(daily, alterPercent)}
-          </Column>
-          <Column>
+            </Select>
+          </Block>
+          <Block>
+            <Label>Total</Label>
+            {daily.toFixed(0)}
+          </Block>
+          <Block>
+            <Label htmlFor="alter">Alter Percent</Label>
+            <Input
+              id="alter"
+              type="number"
+              value={alterPercent}
+              onChange={(e) => setAlterPercent(e.target.value)}
+              min="0"
+              max="30"
+            />
+          </Block>
+          <Block>
+            Gain {calcGain(daily, alterPercent)} <br />
             Loss {calcLoss(daily, alterPercent)}
-          </Column>
+          </Block>
         </Grid>
   );
-}
+};
 
-const Input = styled.input``;
+const inputCss = css`
+  display: block;
+  font-size: 1rem;
+  padding: 8px;
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 4px;
+`;
+
+const Input = styled.input`
+  ${inputCss};
+`;
+
+const Select = styled.select`
+  /* appearance: none; */
+  ${inputCss};
+`;
+
+const Block = styled.div`
+  margin-bottom: 24px;
+`;
 
 const Grid = styled.section`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* display: grid; */
+  /* grid-template-columns: 1fr 1fr; */
 `;
 
 const Column = styled.div`
   grid-column: span 1;
+`;
+
+const Label = styled.label`
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
 `;
 
 export default Calc;

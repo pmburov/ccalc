@@ -3,11 +3,11 @@ export const calcDaily = (weight, height, age, activity) => {
 }
 
 export const calcGain = (daily, alterPercent) => {
-  const p = (daily * alterPercent / 100).toFixed(2);
-  return (Number(daily) + Number(p)).toFixed(2);
+  const p = (daily * alterPercent / 100).toFixed(0);
+  return (Number(daily) + Number(p)).toFixed(0);
 }
 
 export const calcLoss = (daily, alterPercent) => {
-  const p = (daily * alterPercent / 100).toFixed(2);
-  return (Number(daily) - Number(p)).toFixed(2);
+  const p = (daily * alterPercent / 100).toFixed(0);
+  return (Number(daily) - Number(p)).toFixed(0);
 }
